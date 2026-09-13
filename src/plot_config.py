@@ -36,7 +36,7 @@ def show_contents():
 def _show_load_config():
     """ データ読み込み設定 """
 
-    with st.expander("データ読込"):
+    with st.expander("データ読込", expanded=True):
         data_file  = st.file_uploader("CSVファイルをアップロード", type="csv")
         has_header = st.toggle("1行目をヘッダとして使用", value=True)
         skip_rows  = st.number_input("読み飛ばす行数", min_value=0, value=0)

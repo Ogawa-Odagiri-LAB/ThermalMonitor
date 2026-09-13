@@ -1,35 +1,26 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
+import src.style as style
+import src.plot_config as plot_config
+import src.plot as plot
 
 
-SKIP_ROWS = 60
+CONTAINER_HEIGHT = 700
+
+VERSION = "1.0.0"
+
+style.init_page(version=VERSION)
+col_left, col_middle, col_right = st.columns([5.25, 0.5, 4.25])
+
 
 def main():
-    st.title("うお")
-    st.write("うおうおうおうお")
 
-    thermo_couple_file = st.file_uploader("熱電対データをアップロード", type="csv")
-    data_file          = st.file_uploader("CSVファイルをアップロード", type="csv")
+    with col_right:
+        st.subheader("グラフ設定")
+        with st.container(height=CONTAINER_HEIGHT):
+            config = plot_config.show_contents()
 
-    if thermo_couple_file is not None and data_file is not None:
-        df_thermo = pd.read_csv(thermo_couple_file, header=None)
-        df_data   = pd.read_csv(data_file, skiprows=SKIP_ROWS, header=None, encoding="cp932")
-
-        t      = pd.to_datetime(df_data.iloc[:, 1])
-        data   = df_data.iloc[:, 3:43]
-        labels = df_thermo.iloc[:, 1]
-
-        fig, ax = plt.subplots(figsize=(10, 5))
-        ax.plot(t, data)
-        
-        ax.legend(labels, bbox_to_anchor=(1.05, 1), loc='upper left')
-        plt.tight_layout()
-
-        st.pyplot(fig)
-
-
-
+    with col_left:
+        plot.show(config)
 
 
 if __name__ == "__main__":

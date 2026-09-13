@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.11.1",
+    "plotly>=7.0.0",
     "streamlit>=1.63.0",
+    "streamlit-js-eval>=1.0.0",
     "watchdog>=6.0.0",
 ]
